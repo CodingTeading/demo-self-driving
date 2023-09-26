@@ -143,7 +143,7 @@ def frame_selector_ui(summary):
     object_type = st.sidebar.selectbox("어떤 개체를 검색하시나요?", summary.columns, 2)
 
     # The user can select a range for how many of the selected objecgt should be present.
-    min_elts, max_elts = st.sidebar.slider("%s 숫자 (범위 선택)?" % object_type, 0, 25, [10, 20])
+    min_elts, max_elts = st.sidebar.slider("%s 숫자 (범위 선택)" % object_type, 0, 25, [10, 20])
     selected_frames = get_selected_frames(summary, object_type, min_elts, max_elts)
     if len(selected_frames) < 1:
         return None, None
