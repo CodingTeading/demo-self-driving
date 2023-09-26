@@ -34,7 +34,7 @@ def main():
     # Once we have the dependencies, add a selector for the app mode on the sidebar.
     st.sidebar.title("해야 할 것")
     app_mode = st.sidebar.selectbox("앱 모드 선택하기",
-        ["안내 보기", "앱 실행하기", "소스코드 보기"])
+        ["안내 보기", "앱 실행하기", "소스 코드 보기"])
     if app_mode == "안내 보기":
         st.sidebar.success('계속하려면 "앱 실행하기"를 선택')
     elif app_mode == "소스 코드 보기":
