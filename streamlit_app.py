@@ -36,7 +36,7 @@ def main():
     app_mode = st.sidebar.selectbox("앱 모드 선택하기",
         ["안내 보기", "앱 실행하기", "소스코드 보기"])
     if app_mode == "안내 보기":
-        st.sidebar.success('계속하려면 "앱 실행하기"를 선택합니다.')
+        st.sidebar.success('계속하려면 "앱 실행하기"를 선택')
     elif app_mode == "소스 코드 보기":
         readme_text.empty()
         st.code(get_file_content_as_string("streamlit_app.py"))
@@ -127,12 +127,12 @@ def run_the_app():
 
     # Add boxes for objects on the image. These are the boxes for the ground image.
     boxes = metadata[metadata.frame == selected_frame].drop(columns=["frame"])
-    draw_image_with_boxes(image, boxes, "Ground Truth",
-        "**Human-annotated data** (frame `%i`)" % selected_frame_index)
+    draw_image_with_boxes(image, boxes, "실측 정보",
+        "**사람이 확인한 데이터** (frame `%i`)" % selected_frame_index)
 
     # Get the boxes for the objects detected by YOLO by running the YOLO model.
     yolo_boxes = yolo_v3(image, confidence_threshold, overlap_threshold)
-    draw_image_with_boxes(image, yolo_boxes, "Real-time Computer Vision",
+    draw_image_with_boxes(image, yolo_boxes, "실시간 컴퓨터 비전",
         "**YOLO v3 Model** (overlap `%3.1f`) (confidence `%3.1f`)" % (overlap_threshold, confidence_threshold))
 
 # This sidebar UI is a little search engine to find certain object types.
@@ -140,16 +140,16 @@ def frame_selector_ui(summary):
     st.sidebar.markdown("# 프레임")
 
     # The user can pick which type of object to search for.
-    object_type = st.sidebar.selectbox("어떤 개체를 검색하시나요??", summary.columns, 2)
+    object_type = st.sidebar.selectbox("어떤 개체를 검색하시나요?", summary.columns, 2)
 
     # The user can select a range for how many of the selected objecgt should be present.
-    min_elts, max_elts = st.sidebar.slider("How many %ss (select a range)?" % object_type, 0, 25, [10, 20])
+    min_elts, max_elts = st.sidebar.slider("%s 숫자 (범위 선택)?" % object_type, 0, 25, [10, 20])
     selected_frames = get_selected_frames(summary, object_type, min_elts, max_elts)
     if len(selected_frames) < 1:
         return None, None
 
     # Choose a frame out of the selected frames.
-    selected_frame_index = st.sidebar.slider("Choose a frame (index)", 0, len(selected_frames) - 1, 0)
+    selected_frame_index = st.sidebar.slider("프레임 선택 (index)", 0, len(selected_frames) - 1, 0)
 
     # Draw an altair chart in the sidebar with information on the frame.
     objects_per_frame = summary.loc[selected_frames, object_type].reset_index(drop=True).reset_index()
@@ -171,8 +171,8 @@ def get_selected_frames(summary, label, min_elts, max_elts):
 # This sidebar UI lets the user select parameters for the YOLO object detector.
 def object_detector_ui():
     st.sidebar.markdown("# 모델")
-    confidence_threshold = st.sidebar.slider("Confidence threshold", 0.0, 1.0, 0.5, 0.01)
-    overlap_threshold = st.sidebar.slider("Overlap threshold", 0.0, 1.0, 0.3, 0.01)
+    confidence_threshold = st.sidebar.slider("신뢰도 임계값", 0.0, 1.0, 0.5, 0.01)
+    overlap_threshold = st.sidebar.slider("오버랩 임계값", 0.0, 1.0, 0.3, 0.01)
     return confidence_threshold, overlap_threshold
 
 # Draws an image with boxes overlayed to indicate the presence of cars, pedestrians etc.
