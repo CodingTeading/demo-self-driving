@@ -1,4 +1,4 @@
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/streamlit/demo-self-driving)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cd-demo-self-driving.streamlit.app/)
 
 # Streamlit Demo: The Udacity Self-driving Car Image Browser
 
