@@ -34,13 +34,13 @@ def main():
     # Once we have the dependencies, add a selector for the app mode on the sidebar.
     st.sidebar.title("What to do")
     app_mode = st.sidebar.selectbox("Choose the app mode",
-        ["Show instructions", "Run the app", "Show the source code"])
-    if app_mode == "Show instructions":
+        ["안내 보기", "앱 실행하기", "소스코드 보기"])
+    if app_mode == "안내 보기":
         st.sidebar.success('To continue select "Run the app".')
-    elif app_mode == "Show the source code":
+    elif app_mode == "소스 코드 보기":
         readme_text.empty()
         st.code(get_file_content_as_string("streamlit_app.py"))
-    elif app_mode == "Run the app":
+    elif app_mode == "앱 실행하기":
         readme_text.empty()
         run_the_app()
 
