@@ -32,11 +32,11 @@ def main():
         download_file(filename)
 
     # Once we have the dependencies, add a selector for the app mode on the sidebar.
-    st.sidebar.title("What to do")
-    app_mode = st.sidebar.selectbox("Choose the app mode",
+    st.sidebar.title("해야 할 것")
+    app_mode = st.sidebar.selectbox("앱 모드 선택하기",
         ["안내 보기", "앱 실행하기", "소스코드 보기"])
     if app_mode == "안내 보기":
-        st.sidebar.success('To continue select "Run the app".')
+        st.sidebar.success('계속하려면 "앱 실행하기"를 선택합니다.')
     elif app_mode == "소스 코드 보기":
         readme_text.empty()
         st.code(get_file_content_as_string("streamlit_app.py"))
@@ -95,11 +95,11 @@ def run_the_app():
     def create_summary(metadata):
         one_hot_encoded = pd.get_dummies(metadata[["frame", "label"]], columns=["label"])
         summary = one_hot_encoded.groupby(["frame"]).sum().rename(columns={
-            "label_biker": "biker",
-            "label_car": "car",
-            "label_pedestrian": "pedestrian",
-            "label_trafficLight": "traffic light",
-            "label_truck": "truck"
+            "label_biker": "바이커",
+            "label_car": "자동차",
+            "label_pedestrian": "보행자",
+            "label_trafficLight": "신호등",
+            "label_truck": "트럭"
         })
         return summary
 
@@ -137,10 +137,10 @@ def run_the_app():
 
 # This sidebar UI is a little search engine to find certain object types.
 def frame_selector_ui(summary):
-    st.sidebar.markdown("# Frame")
+    st.sidebar.markdown("# 프레임")
 
     # The user can pick which type of object to search for.
-    object_type = st.sidebar.selectbox("Search for which objects?", summary.columns, 2)
+    object_type = st.sidebar.selectbox("어떤 개체를 검색하시나요??", summary.columns, 2)
 
     # The user can select a range for how many of the selected objecgt should be present.
     min_elts, max_elts = st.sidebar.slider("How many %ss (select a range)?" % object_type, 0, 25, [10, 20])
@@ -170,7 +170,7 @@ def get_selected_frames(summary, label, min_elts, max_elts):
 
 # This sidebar UI lets the user select parameters for the YOLO object detector.
 def object_detector_ui():
-    st.sidebar.markdown("# Model")
+    st.sidebar.markdown("# 모델")
     confidence_threshold = st.sidebar.slider("Confidence threshold", 0.0, 1.0, 0.5, 0.01)
     overlap_threshold = st.sidebar.slider("Overlap threshold", 0.0, 1.0, 0.3, 0.01)
     return confidence_threshold, overlap_threshold
